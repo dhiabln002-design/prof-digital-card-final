@@ -110,6 +110,7 @@ END:VCARD`;
               alt={profile.name} 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
+              loading="eager"
             />
           </div>
           {/* Status Indicator */}
@@ -142,9 +143,9 @@ END:VCARD`;
           <motion.a 
             href={`tel:${profile.phone}`}
             animate={pulseAnimation}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(30, 64, 175, 0.4)" }}
             whileTap={{ scale: 0.95 }}
-            className="w-full btn-royal-blue py-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg"
+            className="w-full btn-royal-blue py-4 rounded-3xl flex items-center justify-center gap-3 font-bold text-lg shadow-lg"
           >
             <Phone size={20} className="shrink-0" />
             <span>اتصل بي الآن</span>
@@ -155,9 +156,9 @@ END:VCARD`;
             target="_blank"
             rel="noopener noreferrer"
             animate={pulseAnimation}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(16, 185, 129, 0.3)" }}
             whileTap={{ scale: 0.95 }}
-            className="w-full btn-whatsapp-green py-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg"
+            className="w-full btn-whatsapp-green py-4 rounded-3xl flex items-center justify-center gap-3 font-bold text-lg shadow-lg"
           >
             <div className="pulse-dot" />
             <span>تواصل عبر واتساب</span>
@@ -167,7 +168,7 @@ END:VCARD`;
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={handleCopyLink}
-              className="btn-light-gray py-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-sm"
+              className="btn-light-gray py-4 rounded-3xl flex flex-col items-center justify-center gap-2 font-bold text-sm shadow-sm"
             >
               {copied ? <Check size={20} className="text-emerald-500" /> : <Copy size={20} className="text-blue-500" />}
               <span>{copied ? "تم النسخ!" : "نسخ الرقم"}</span>
@@ -175,7 +176,7 @@ END:VCARD`;
 
             <button 
               onClick={handleDownloadVCard}
-              className="btn-light-gray py-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-sm"
+              className="btn-light-gray py-4 rounded-3xl flex flex-col items-center justify-center gap-2 font-bold text-sm shadow-sm"
             >
               <UserPlus size={20} className="text-blue-500" />
               <span>حفظ الجهة</span>
@@ -185,9 +186,9 @@ END:VCARD`;
           <motion.button 
             onClick={() => setShowQR(true)}
             animate={pulseAnimation}
-            whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(184, 134, 11, 0.6)" }}
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(184, 134, 11, 0.6)" }}
             whileTap={{ scale: 0.95 }}
-            className="w-full btn-gold py-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg"
+            className="w-full btn-gold py-4 rounded-3xl flex items-center justify-center gap-3 font-bold text-lg shadow-lg"
           >
             <QrCode size={22} className="shrink-0" />
             <span>مسح رمز QR للتواصل</span>
@@ -215,7 +216,7 @@ END:VCARD`;
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="bg-white w-full max-w-xs rounded-[40px] p-8 relative shadow-2xl text-center"
+              className="bg-white w-full max-w-xs rounded-[48px] p-8 relative shadow-2xl text-center"
             >
               <button 
                 onClick={() => setShowQR(false)}
@@ -229,7 +230,7 @@ END:VCARD`;
                 <p className="text-xs text-slate-500">امسح الرمز ضوئياً لحفظ جهة الاتصال</p>
               </div>
 
-              <div className="bg-slate-50 p-6 rounded-[32px] mb-6 flex items-center justify-center border border-slate-100">
+              <div className="bg-slate-50 p-6 rounded-[40px] mb-6 flex items-center justify-center border border-slate-100">
                 <img 
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(profile.website)}&color=0f172a&bgcolor=f8fafc`} 
                   alt="QR Code" 
@@ -239,7 +240,7 @@ END:VCARD`;
 
               <button 
                 onClick={handleDownloadVCard}
-                className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 text-sm"
+                className="w-full bg-slate-900 text-white py-4 rounded-3xl font-bold flex items-center justify-center gap-2 text-sm shadow-lg"
               >
                 <Download size={18} />
                 <span>تحميل بطاقة العمل</span>
