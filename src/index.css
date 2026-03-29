@@ -16,70 +16,127 @@
 @layer utilities {
   .premium-bg {
     z-index: -1;
-    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    background: #ffffff;
+    background-attachment: fixed;
     @apply fixed inset-0;
   }
 
+  /* The Royal Mesh Gradient & Aurora Light */
   .premium-bg::before {
     content: "";
-    @apply absolute inset-0 opacity-20 pointer-events-none;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bae6fd' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    @apply absolute inset-0 pointer-events-none;
+    background: 
+      radial-gradient(circle at 0% 0%, rgba(30, 64, 175, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
+    background-attachment: fixed;
+  }
+
+  /* Aurora Light Effect */
+  .aurora-light {
+    @apply absolute -top-24 -left-24 w-96 h-96 rounded-full pointer-events-none opacity-20;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+    filter: blur(60px);
+    animation: aurora-shift 10s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-shift {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(20px, 40px) scale(1.1); }
   }
 
   .glass-card {
-    @apply relative overflow-hidden border border-white/50 bg-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    will-change: transform, opacity;
+    @apply relative overflow-hidden border border-white/10 transition-all duration-500;
+    /* Glassmorphism 2.0 with Royal Space Gray */
+    background: linear-gradient(
+      135deg,
+      rgba(17, 24, 39, 0.92) 0%,
+      rgba(31, 41, 55, 0.88) 100%
+    );
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border-radius: 64px;
+    
+    /* Deep Luxury Shadow & Polished Edge */
+    box-shadow: 
+      0 50px 100px -20px rgba(0, 0, 0, 0.5),
+      0 30px 60px -10px rgba(0, 0, 0, 0.3),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    
+    will-change: transform, backdrop-filter;
   }
 
-  @media (min-width: 768px) {
-    .glass-card {
-      @apply bg-white/15 backdrop-blur-[30px];
-    }
+  /* Golden Static Glow for Buttons */
+  .btn-glow-gold {
+    position: relative;
+  }
+  .btn-glow-gold::before {
+    content: "";
+    @apply absolute inset-0 rounded-[28px] opacity-40 pointer-events-none;
+    box-shadow: 0 0 25px 5px rgba(212, 175, 55, 0.3);
+    z-index: -1;
   }
 
-  .glass-card:hover {
-    @apply shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-white/70;
-  }
-
-  .glass-shine {
-    @apply absolute inset-0 pointer-events-none hidden md:block;
-    background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
+  /* Luxury Reflection Layer */
+  .glass-reflection {
+    @apply absolute inset-0 pointer-events-none overflow-hidden rounded-[64px];
+    background: linear-gradient(
+      105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.1) 25%,
+      rgba(255, 255, 255, 0.2) 30%,
+      transparent 35%
+    );
     background-size: 200% 100%;
-    animation: shine 8s linear infinite;
+    animation: glass-shine 8s linear infinite;
   }
 
-  .fluid-waves-container {
-    @apply absolute -top-[10%] left-0 w-full h-[45%] overflow-hidden pointer-events-none z-0 hidden md:block;
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  @keyframes glass-shine {
+    0% { background-position: 150% 0; }
+    100% { background-position: -50% 0; }
   }
 
-  .fluid-wave {
-    @apply absolute -top-full -left-1/2 w-[200%] h-[200%] rounded-[43%] opacity-15 transition-all duration-1000;
-    background: linear-gradient(45deg, #1e3a8a, #38bdf8);
-    animation: wave-rotate 20s linear infinite;
+  /* Refined Golden Geometric SVG Pattern */
+  .card-pattern {
+    @apply absolute top-0 right-0 w-80 h-80 pointer-events-none opacity-[0.06];
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23D4AF37' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    mask-image: radial-gradient(circle at top right, black, transparent 70%);
+    -webkit-mask-image: radial-gradient(circle at top right, black, transparent 70%);
   }
 
-  .fluid-wave:nth-child(2) {
-    @apply opacity-10 rounded-[40%];
-    animation-duration: 25s;
-    animation-direction: reverse;
+  /* Golden Glow for Avatar */
+  .avatar-glow {
+    @apply absolute inset-0 rounded-full;
+    box-shadow: 0 0 40px 10px rgba(212, 175, 55, 0.2);
+    z-index: 0;
   }
 
-  .fluid-wave:nth-child(3) {
-    @apply opacity-5 rounded-[45%];
-    animation-duration: 15s;
+  /* Glassy Buttons */
+  .btn-glass-royal {
+    @apply relative overflow-hidden border border-white/20 shadow-lg transition-all duration-300;
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.4);
   }
 
-  .radial-glow {
-    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] pointer-events-none -z-10 opacity-10 hidden md:block;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-    animation: glow-pulse 4s ease-in-out infinite;
+  .btn-glass-emerald {
+    @apply relative overflow-hidden border border-white/20 shadow-lg transition-all duration-300;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
   }
 
-  .gold-gradient {
-    background: linear-gradient(to right, #d4af37, #ffd700, #b8860b);
+  .gold-gradient-text {
+    background: linear-gradient(to bottom, #D4AF37, #B8860B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .float-animation {
+    animation: float-gold 5s ease-in-out infinite;
+  }
+
+  @keyframes float-gold {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
   }
 }
 
