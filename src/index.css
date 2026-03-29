@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800;900&display=swap');
+
+@theme {
+  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Tajawal", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black antialiased overflow-x-hidden;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .premium-bg {
+    z-index: -1;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    @apply fixed inset-0;
+  }
+
+  .premium-bg::before {
+    content: "";
+    @apply absolute inset-0 opacity-20 pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bae6fd' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .glass-card {
+    @apply relative overflow-hidden border border-white/50 bg-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-[30px] transition-all duration-500;
+  }
+
+  .glass-card:hover {
+    @apply shadow-[0_30px_60px_rgba(0,0,0,0.08)] border-white/70;
+  }
+
+  .glass-shine {
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%);
+    background-size: 200% 100%;
+    animation: shine 8s linear infinite;
+  }
+
+  .fluid-waves-container {
+    @apply absolute -top-[10%] left-0 w-full h-[45%] overflow-hidden pointer-events-none z-0;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+
+  .fluid-wave {
+    @apply absolute -top-full -left-1/2 w-[200%] h-[200%] rounded-[43%] opacity-15 transition-all duration-1000;
+    background: linear-gradient(45deg, #1e3a8a, #38bdf8);
+    animation: wave-rotate 20s linear infinite;
+  }
+
+  .fluid-wave:nth-child(2) {
+    @apply opacity-10 rounded-[40%];
+    animation-duration: 25s;
+    animation-direction: reverse;
+  }
+
+  .fluid-wave:nth-child(3) {
+    @apply opacity-5 rounded-[45%];
+    animation-duration: 15s;
+  }
+
+  .radial-glow {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] pointer-events-none -z-10 opacity-10;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    animation: glow-pulse 4s ease-in-out infinite;
+  }
+
+  .gold-gradient {
+    background: linear-gradient(to right, #d4af37, #ffd700, #b8860b);
+  }
+}
+
+@keyframes shine {
+  0% { background-position: -100% 0; }
+  15%, 100% { background-position: 200% 0; }
+}
+
+@keyframes wave-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.2); }
+}
