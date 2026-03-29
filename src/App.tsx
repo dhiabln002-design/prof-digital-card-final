@@ -1,3 +1,8 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
@@ -15,6 +20,15 @@ import {
 export default function App() {
   const [showQR, setShowQR] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const pulseAnimation = {
+    scale: [1, 1.03, 1],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
+    }
+  };
 
   const profile = {
     name: "الأستاذ الدكتور / محمد علي",
@@ -70,48 +84,27 @@ END:VCARD`;
 
   const whatsappUrl = `https://wa.me/${profile.phone.replace(/\+/g, "")}`;
 
-  const pulseAnimation = {
-    scale: [1, 1.05, 1],
-    transition: {
-      duration: 0.4,
-      repeat: 1, // Runs twice (0.8s total), then stops for performance
-      ease: "easeInOut"
-    }
-  };
-
   return (
-    <div className="min-h-screen w-full relative selection:bg-blue-100 flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden" dir="rtl">
+    <div className="min-h-[100dvh] w-full relative selection:bg-blue-100 flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden font-display" dir="rtl">
       <div className="premium-bg" />
-      <div className="aurora-light" />
       
       <motion.main 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="glass-card w-full max-w-lg p-10 md:p-14 flex flex-col items-center text-center font-sans"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="glass-card w-full max-w-md p-8 md:p-10 flex flex-col items-center text-center"
       >
-        {/* Premium Decorative Layers */}
-        <div className="card-pattern" />
-        <div className="glass-reflection" />
-        
-        {/* Decorative Borders */}
-        <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-white/20 rounded-tl-[64px] pointer-events-none" />
-        <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-white/20 rounded-tr-[64px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-white/20 rounded-bl-[64px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-white/20 rounded-br-[64px] pointer-events-none" />
-        
-        {/* Share Button with Floating Animation */}
+        {/* Share Button */}
         <button 
           onClick={handleShare}
-          className="absolute top-10 right-10 p-3 bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-full text-white hover:scale-110 transition-transform shadow-xl border border-white/20 z-20 float-animation"
+          className="absolute top-6 right-6 p-2 bg-slate-100/80 rounded-full text-slate-600 hover:bg-slate-200 transition-colors z-20"
         >
-          <Share2 size={20} />
+          <Share2 size={18} />
         </button>
 
-        {/* Profile Section with Static Glow */}
-        <div className="relative mb-10 mt-2">
-          <div className="avatar-glow" />
-          <div className="relative w-40 h-40 rounded-full border-4 border-white shadow-2xl overflow-hidden z-10">
+        {/* Profile Section */}
+        <div className="relative mb-6">
+          <div className="profile-image-container">
             <img 
               src={profile.avatar} 
               alt={profile.name} 
@@ -119,40 +112,41 @@ END:VCARD`;
               referrerPolicy="no-referrer"
             />
           </div>
-          
           {/* Status Indicator */}
-          <div className="absolute bottom-4 right-4 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-md z-20">
-            <div className="w-4 h-4 bg-emerald-500 rounded-full" />
+          <div className="absolute bottom-2 right-2 w-5 h-5 bg-white rounded-full flex items-center justify-center shadow-md z-20">
+            <div className="status-dot" />
           </div>
         </div>
 
         {/* Info Section */}
-        <div className="mb-12 space-y-2 relative z-10">
-          <h1 className="text-4xl font-display font-black text-white leading-tight tracking-tight gold-gradient-text">
+        <div className="mb-8 space-y-1 relative z-10">
+          <h1 className="text-3xl font-bold text-slate-900 leading-tight">
             {profile.name}
           </h1>
-          <p className="text-xl font-bold text-gray-100 tracking-wide">
+          <p className="text-lg font-semibold text-slate-600">
             {profile.title}
           </p>
-          <p className="text-sm text-gray-300 max-w-[340px] mx-auto leading-relaxed mt-6 font-medium">
+          <p className="text-sm text-slate-500 max-w-[280px] mx-auto leading-relaxed mt-4">
             {profile.description}
           </p>
           
-          <div className="pt-8 flex items-center justify-center gap-3 opacity-20">
-            <div className="h-[1px] w-12 bg-[#D4AF37]" />
-            <div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />
-            <div className="h-[1px] w-12 bg-[#D4AF37]" />
+          <div className="pt-6 flex items-center justify-center gap-2 opacity-10">
+            <div className="h-[1px] w-10 bg-slate-900" />
+            <div className="w-1 h-1 rounded-full bg-slate-900" />
+            <div className="h-[1px] w-10 bg-slate-900" />
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="w-full space-y-5 relative z-10">
+        <div className="w-full space-y-4 relative z-10">
           <motion.a 
             href={`tel:${profile.phone}`}
             animate={pulseAnimation}
-            className="w-full btn-glass-royal btn-glow-gold text-white py-5 rounded-[28px] flex items-center justify-center gap-4 font-bold text-xl"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full btn-royal-blue py-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg"
           >
-            <Phone size={22} className="shrink-0" />
+            <Phone size={20} className="shrink-0" />
             <span>اتصل بي الآن</span>
           </motion.a>
 
@@ -161,58 +155,49 @@ END:VCARD`;
             target="_blank"
             rel="noopener noreferrer"
             animate={pulseAnimation}
-            className="w-full btn-glass-emerald btn-glow-gold text-white py-5 rounded-[28px] flex items-center justify-center gap-4 font-bold text-xl relative"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full btn-whatsapp-green py-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg"
           >
-            <MessageCircle size={24} className="shrink-0" />
-            <div className="flex items-center gap-2">
-              <span>تواصل عبر واتساب</span>
-              <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
-            </div>
+            <div className="pulse-dot" />
+            <span>تواصل عبر واتساب</span>
+            <MessageCircle size={22} className="shrink-0" />
           </motion.a>
 
-          <div className="grid grid-cols-2 gap-5">
-            <motion.button 
-              onClick={handleDownloadVCard}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white/10 backdrop-blur-md border border-white/10 text-white py-6 rounded-[28px] flex flex-col items-center justify-center gap-3 font-bold text-base shadow-sm hover:bg-white/20 transition-colors"
-            >
-              <UserPlus size={22} className="text-[#D4AF37]" />
-              <span>حفظ الجهة</span>
-            </motion.button>
-
-            <motion.button 
+          <div className="grid grid-cols-2 gap-4">
+            <button 
               onClick={handleCopyLink}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white/10 backdrop-blur-md border border-white/10 text-white py-6 rounded-[28px] flex flex-col items-center justify-center gap-3 font-bold text-base shadow-sm hover:bg-white/20 transition-colors"
+              className="btn-light-gray py-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-sm"
             >
-              {copied ? <Check size={22} className="text-emerald-400" /> : <Copy size={22} className="text-[#D4AF37]" />}
+              {copied ? <Check size={20} className="text-emerald-500" /> : <Copy size={20} className="text-blue-500" />}
               <span>{copied ? "تم النسخ!" : "نسخ الرقم"}</span>
-            </motion.button>
+            </button>
+
+            <button 
+              onClick={handleDownloadVCard}
+              className="btn-light-gray py-4 rounded-2xl flex flex-col items-center justify-center gap-2 font-bold text-sm"
+            >
+              <UserPlus size={20} className="text-blue-500" />
+              <span>حفظ الجهة</span>
+            </button>
           </div>
 
           <motion.button 
             onClick={() => setShowQR(true)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white py-5 rounded-[28px] flex items-center justify-center gap-4 font-bold text-xl shadow-xl border border-white/20"
+            animate={pulseAnimation}
+            whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(184, 134, 11, 0.6)" }}
+            whileTap={{ scale: 0.95 }}
+            className="w-full btn-gold py-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg"
           >
-            <QrCode size={24} className="shrink-0" />
+            <QrCode size={22} className="shrink-0" />
             <span>مسح رمز QR للتواصل</span>
           </motion.button>
         </div>
 
         {/* Footer */}
-        <footer className="mt-14 relative z-10">
-          <p className="text-[11px] text-gray-400 font-black tracking-[0.4em] uppercase mb-4">
+        <footer className="mt-10 relative z-10">
+          <p className="text-[10px] text-slate-400 font-bold tracking-[0.3em] uppercase">
             Digital Profile 2026
-          </p>
-          <p className="text-[9px] text-gray-400/60 max-w-[200px] mx-auto leading-tight">
-            هذه بطاقة رقمية تفاعلية. جميع الحقوق محفوظة.
           </p>
         </footer>
       </motion.main>
@@ -224,39 +209,39 @@ END:VCARD`;
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/60"
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-900/40 backdrop-blur-sm"
           >
             <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="bg-gray-900 w-full max-w-sm rounded-[56px] p-10 relative shadow-2xl text-center border border-white/10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="bg-white w-full max-w-xs rounded-[40px] p-8 relative shadow-2xl text-center"
             >
               <button 
                 onClick={() => setShowQR(false)}
-                className="absolute top-8 left-8 p-2.5 bg-white/5 rounded-full text-gray-300 hover:bg-white/10 transition-colors"
+                className="absolute top-6 left-6 p-2 bg-slate-100 rounded-full text-slate-400 hover:bg-slate-200 transition-colors"
               >
-                <X size={22} />
+                <X size={20} />
               </button>
 
-              <div className="mt-6 mb-8">
-                <h2 className="text-2xl font-display font-black text-white mb-3">رمز QR الخاص بي</h2>
-                <p className="text-sm text-gray-400">امسح الرمز ضوئياً لحفظ جهة الاتصال مباشرة</p>
+              <div className="mt-4 mb-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-2">رمز QR الخاص بي</h2>
+                <p className="text-xs text-slate-500">امسح الرمز ضوئياً لحفظ جهة الاتصال</p>
               </div>
 
-              <div className="bg-white/5 p-8 rounded-[40px] mb-8 flex items-center justify-center border border-white/5">
+              <div className="bg-slate-50 p-6 rounded-[32px] mb-6 flex items-center justify-center border border-slate-100">
                 <img 
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(profile.website)}&color=ffffff&bgcolor=111827`} 
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(profile.website)}&color=0f172a&bgcolor=f8fafc`} 
                   alt="QR Code" 
-                  className="w-52 h-52"
+                  className="w-44 h-44"
                 />
               </div>
 
               <button 
                 onClick={handleDownloadVCard}
-                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white py-4 rounded-[24px] font-bold flex items-center justify-center gap-3 shadow-md"
+                className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 text-sm"
               >
-                <Download size={22} />
+                <Download size={18} />
                 <span>تحميل بطاقة العمل</span>
               </button>
             </motion.div>
