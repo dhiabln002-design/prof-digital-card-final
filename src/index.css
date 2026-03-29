@@ -1,156 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;800;900&display=swap');
 
 @theme {
-  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Tajawal", sans-serif;
+  --font-display: "Cairo", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   body {
-    @apply bg-white text-black antialiased overflow-x-hidden;
-    font-family: var(--font-sans);
+    @apply text-slate-800 antialiased;
+    margin: 0;
+    padding: 0;
+    font-family: "Cairo", sans-serif;
   }
 }
 
-@layer utilities {
+@layer components {
   .premium-bg {
-    z-index: -1;
-    background: #ffffff;
-    background-attachment: fixed;
-    @apply fixed inset-0;
-  }
-
-  /* The Royal Mesh Gradient & Aurora Light */
-  .premium-bg::before {
-    content: "";
-    @apply absolute inset-0 pointer-events-none;
-    background: 
-      radial-gradient(circle at 0% 0%, rgba(30, 64, 175, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 1) 100%);
-    background-attachment: fixed;
-  }
-
-  /* Aurora Light Effect */
-  .aurora-light {
-    @apply absolute -top-24 -left-24 w-96 h-96 rounded-full pointer-events-none opacity-20;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
-    filter: blur(60px);
-    animation: aurora-shift 10s ease-in-out infinite alternate;
-  }
-
-  @keyframes aurora-shift {
-    from { transform: translate(0, 0) scale(1); }
-    to { transform: translate(20px, 40px) scale(1.1); }
+    @apply fixed inset-0 -z-20;
+    background: -webkit-linear-gradient(135deg, #e2e8f0 0%, #d5e1e8 100%) !important;
+    background: linear-gradient(135deg, #e2e8f0 0%, #d5e1e8 100%) !important;
+    -webkit-background-size: cover;
+    background-size: cover;
   }
 
   .glass-card {
-    @apply relative overflow-hidden border border-white/10 transition-all duration-500;
-    /* Glassmorphism 2.0 with Royal Space Gray */
-    background: linear-gradient(
-      135deg,
-      rgba(17, 24, 39, 0.92) 0%,
-      rgba(31, 41, 55, 0.88) 100%
-    );
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border-radius: 64px;
-    
-    /* Deep Luxury Shadow & Polished Edge */
-    box-shadow: 
-      0 50px 100px -20px rgba(0, 0, 0, 0.5),
-      0 30px 60px -10px rgba(0, 0, 0, 0.3),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    
-    will-change: transform, backdrop-filter;
+    @apply relative overflow-hidden rounded-[48px] border border-white/60 shadow-2xl;
+    background: -webkit-linear-gradient(top, #BAE6FD 0%, #F0F9FF 40%, #FFFFFF 100%) !important;
+    background: linear-gradient(180deg, #BAE6FD 0%, #F0F9FF 40%, #FFFFFF 100%) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
-  /* Golden Static Glow for Buttons */
-  .btn-glow-gold {
-    position: relative;
-  }
-  .btn-glow-gold::before {
-    content: "";
-    @apply absolute inset-0 rounded-[28px] opacity-40 pointer-events-none;
-    box-shadow: 0 0 25px 5px rgba(212, 175, 55, 0.3);
-    z-index: -1;
+  .btn-royal-blue {
+    @apply bg-[#1e40af] hover:bg-[#1e3a8a] text-white transition-all duration-300 active:scale-95;
+    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+    will-change: transform;
   }
 
-  /* Luxury Reflection Layer */
-  .glass-reflection {
-    @apply absolute inset-0 pointer-events-none overflow-hidden rounded-[64px];
-    background: linear-gradient(
-      105deg,
-      transparent 20%,
-      rgba(255, 255, 255, 0.1) 25%,
-      rgba(255, 255, 255, 0.2) 30%,
-      transparent 35%
-    );
-    background-size: 200% 100%;
-    animation: glass-shine 8s linear infinite;
+  .btn-whatsapp-green {
+    @apply bg-[#10b981] hover:bg-[#059669] text-white transition-all duration-300 active:scale-95;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    will-change: transform;
   }
 
-  @keyframes glass-shine {
-    0% { background-position: 150% 0; }
-    100% { background-position: -50% 0; }
+  .profile-image-container {
+    @apply relative w-32 h-32 rounded-full border-[3px] border-white shadow-xl overflow-hidden z-10 bg-white;
   }
 
-  /* Refined Golden Geometric SVG Pattern */
-  .card-pattern {
-    @apply absolute top-0 right-0 w-80 h-80 pointer-events-none opacity-[0.06];
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23D4AF37' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
-    mask-image: radial-gradient(circle at top right, black, transparent 70%);
-    -webkit-mask-image: radial-gradient(circle at top right, black, transparent 70%);
+  .btn-light-gray {
+    @apply bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all duration-300 active:scale-95;
   }
 
-  /* Golden Glow for Avatar */
-  .avatar-glow {
-    @apply absolute inset-0 rounded-full;
-    box-shadow: 0 0 40px 10px rgba(212, 175, 55, 0.2);
-    z-index: 0;
+  .btn-gold {
+    @apply text-[#3e2723] transition-all duration-300 active:scale-95;
+    background: linear-gradient(45deg, #B8860B, #FFD700) !important;
+    box-shadow: 0 4px 15px rgba(184, 134, 11, 0.4);
+    will-change: transform, box-shadow;
   }
 
-  /* Glassy Buttons */
-  .btn-glass-royal {
-    @apply relative overflow-hidden border border-white/20 shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
-    box-shadow: 0 10px 20px -5px rgba(30, 64, 175, 0.4);
+  .pulse-dot {
+    @apply w-2.5 h-2.5 bg-white rounded-full;
+    animation: pulse-white 2s infinite;
   }
 
-  .btn-glass-emerald {
-    @apply relative overflow-hidden border border-white/20 shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.4);
+  @keyframes pulse-white {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
   }
 
-  .gold-gradient-text {
-    background: linear-gradient(to bottom, #D4AF37, #B8860B);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  .status-dot {
+    @apply w-3 h-3 bg-emerald-500 rounded-full border-2 border-white;
   }
-
-  .float-animation {
-    animation: float-gold 5s ease-in-out infinite;
-  }
-
-  @keyframes float-gold {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-8px) rotate(2deg); }
-  }
-}
-
-@keyframes shine {
-  0% { background-position: -100% 0; }
-  15%, 100% { background-position: 200% 0; }
-}
-
-@keyframes wave-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.2); }
 }
