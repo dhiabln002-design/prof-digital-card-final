@@ -70,8 +70,10 @@ END:VCARD`;
 
   const whatsappUrl = `https://wa.me/${profile.phone.replace(/\+/g, "")}`;
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+
   const buttonVariants = {
-    whileHover: { 
+    whileHover: isMobile ? {} : { 
       scale: 1.05, 
       y: -5,
       boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" 
@@ -85,9 +87,9 @@ END:VCARD`;
       <div className="premium-bg" />
       
       <motion.main 
-        initial={{ opacity: 0, scale: 0.95, y: 40 }}
+        initial={isMobile ? { opacity: 0, y: 20 } : { opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="glass-card w-full max-w-lg rounded-[48px] p-10 md:p-14 flex flex-col items-center text-center font-sans"
       >
         {/* Animated Background Elements */}
@@ -124,9 +126,13 @@ END:VCARD`;
               referrerPolicy="no-referrer"
             />
           </div>
-          {/* Rotating Rings */}
-          <div className="absolute -inset-3 border border-blue-200/20 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none" />
-          <div className="absolute -inset-5 border border-dashed border-blue-200/10 rounded-full animate-[spin_30s_linear_infinite_reverse] pointer-events-none" />
+          {/* Rotating Rings - Disabled on mobile for performance */}
+          {!isMobile && (
+            <>
+              <div className="absolute -inset-3 border border-blue-200/20 rounded-full animate-[spin_20s_linear_infinite] pointer-events-none" />
+              <div className="absolute -inset-5 border border-dashed border-blue-200/10 rounded-full animate-[spin_30s_linear_infinite_reverse] pointer-events-none" />
+            </>
+          )}
           
           {/* Status Indicator */}
           <div className="absolute bottom-3 right-3 w-6 h-6 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg z-20">
